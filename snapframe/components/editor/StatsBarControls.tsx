@@ -15,17 +15,13 @@ const STATS_STYLES: { id: StatsStyle; label: string }[] = [
   { id: 'glass',   label: 'Glass' },
 ];
 
-const STAT_FIELDS: { key: keyof typeof EMOJI_MAP; label: string; placeholder: string }[] = [
-  { key: 'likes',    label: '❤️ Likes',    placeholder: '7,584' },
-  { key: 'comments', label: '💬 Comments', placeholder: '56' },
-  { key: 'shares',   label: '🔁 Shares',   placeholder: '787' },
-  { key: 'views',    label: '👁 Views',    placeholder: '90.8K' },
-  { key: 'saves',    label: '🔖 Saves',    placeholder: '1.2K' },
+const STAT_FIELDS: { key: string; label: string; placeholder: string }[] = [
+  { key: 'likes',    label: 'Likes',    placeholder: '7,584' },
+  { key: 'comments', label: 'Comments', placeholder: '56' },
+  { key: 'shares',   label: 'Shares',   placeholder: '787' },
+  { key: 'views',    label: 'Views',    placeholder: '90.8K' },
+  { key: 'saves',    label: 'Saves',    placeholder: '1.2K' },
 ];
-
-const EMOJI_MAP = {
-  likes: '❤️', comments: '💬', shares: '🔁', views: '👁', saves: '🔖',
-};
 
 export function StatsBarControls({ state, onChange }: StatsBarProps) {
   const { statsBar } = state;

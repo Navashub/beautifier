@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { Heart, MessageCircle, Repeat, Eye, Bookmark } from 'lucide-react';
 import type { CanvasState } from '@/types';
 import { buildGradientCSS, getAspectRatioPadding, formatStatNumber } from '@/lib/utils';
 
@@ -9,8 +10,12 @@ interface CanvasPreviewProps {
   canvasId: string;
 }
 
-const STATS_EMOJIS: Record<string, string> = {
-  likes: '❤️', comments: '💬', shares: '🔁', views: '👁', saves: '🔖',
+const STATS_ICONS: Record<string, React.ReactNode> = {
+  likes: <Heart size={16} fill="currentColor" />,
+  comments: <MessageCircle size={16} fill="currentColor" />,
+  shares: <Repeat size={16} />,
+  views: <Eye size={16} />,
+  saves: <Bookmark size={16} fill="currentColor" />,
 };
 
 export function CanvasPreview({ state, canvasId }: CanvasPreviewProps) {
@@ -161,10 +166,9 @@ export function CanvasPreview({ state, canvasId }: CanvasPreviewProps) {
       }}
     >
       {/* Aspect ratio wrapper */}
-      <div style={{ position: 'relative', paddingBottom: getAspectRatioPadding(state.aspectRatio) }}>
+      <div id={canvasId} style={{ position: 'relative', paddingBottom: getAspectRatioPadding(state.aspectRatio) }}>
         {/* Outer canvas (background) */}
         <div
-          id={canvasId}
           style={{
             position: 'absolute',
             inset: 0,
@@ -265,8 +269,10 @@ export function CanvasPreview({ state, canvasId }: CanvasPreviewProps) {
           {state.statsBar.enabled && activeStats.length > 0 && (
             <div style={getStatsBarStyle()}>
               {activeStats.map(([key, value]) => (
-                <span key={key} style={{ display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
-                  <span>{STATS_EMOJIS[key]}</span>
+                <span key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', opacity: 0.9 }}>
+                    {STATS_ICONS[key]}
+                  </span>
                   <span>{formatStatNumber(value ?? '')}</span>
                 </span>
               ))}
